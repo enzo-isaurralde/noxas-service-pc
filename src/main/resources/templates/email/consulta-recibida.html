@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta recibida</title>
+</head>
+<body style="margin:0; padding:0; background-color:#0A1024; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color:#E2E8F0;">
+
+<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#0A1024; padding: 40px 20px;">
+    <tr>
+        <td align="center">
+
+            <!-- Contenedor principal -->
+            <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width:600px; background-color:#0E172F; border:1px solid #1E293B; border-radius:8px; overflow:hidden;">
+
+                <!-- Header -->
+                <tr>
+                    <td style="padding: 32px 40px 24px 40px; border-bottom: 1px solid #1E293B;">
+                        <h1 style="margin:0; font-size:20px; font-weight:700; color:#FFFFFF; letter-spacing:-0.5px; font-family: 'Space Grotesk', Arial, sans-serif;">
+                            NOXAS <span style="color:#14C9C0;">Service PC</span>
+                        </h1>
+                        <p style="margin:4px 0 0 0; font-size:11px; color:#94A3B8; letter-spacing:1px; text-transform:uppercase;">
+                            // SERVICE A DOMICILIO · CABA
+                        </p>
+                    </td>
+                </tr>
+
+                <!-- Saludo -->
+                <tr>
+                    <td style="padding: 32px 40px 16px 40px;">
+                        <h2 style="margin:0 0 8px 0; font-size:22px; font-weight:600; color:#FFFFFF; font-family: 'Space Grotesk', Arial, sans-serif;">
+                            ¡Hola <span th:text="${consulta.nombreCliente}">Juan</span>! 👋
+                        </h2>
+                        <p style="margin:0; font-size:15px; line-height:1.6; color:#94A3B8;">
+                            Recibimos tu consulta correctamente. En breve un técnico se va a contactar para coordinar la visita.
+                        </p>
+                    </td>
+                </tr>
+
+                <!-- Número de comprobante -->
+                <tr>
+                    <td style="padding: 16px 40px 24px 40px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#070D21; border:1px solid #14C9C0; border-radius:6px;">
+                            <tr>
+                                <td style="padding: 20px 24px; text-align:center;">
+                                    <p style="margin:0 0 6px 0; font-size:11px; color:#14C9C0; letter-spacing:1.5px; text-transform:uppercase; font-weight:600;">
+                                        NÚMERO DE COMPROBANTE
+                                    </p>
+                                    <p style="margin:0; font-size:26px; font-weight:700; color:#3DE273; letter-spacing:-0.5px; font-family: 'Space Grotesk', Arial, sans-serif;" th:text="${consulta.numeroComprobante}">
+                                        RC-2026-0003
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- Resumen -->
+                <tr>
+                    <td style="padding: 0 40px 24px 40px;">
+                        <p style="margin:0 0 12px 0; font-size:11px; color:#14C9C0; letter-spacing:1.5px; text-transform:uppercase; font-weight:600;">
+                            RESUMEN DE TU SOLICITUD
+                        </p>
+
+                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px; line-height:1.8;">
+                            <tr>
+                                <td style="color:#94A3B8; width:150px;">📍 Barrio</td>
+                                <td style="color:#E2E8F0;" th:text="${consulta.barrioNombre}">Palermo</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#94A3B8;">🛣️ Dirección</td>
+                                <td style="color:#E2E8F0;" th:text="${consulta.direccion}">Av. Santa Fe 3200, Piso 4 B</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#94A3B8;">💻 Equipo</td>
+                                <td style="color:#E2E8F0;" th:text="${consulta.equipo != null ? consulta.equipo : 'A definir'}">Notebook Lenovo</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#94A3B8;">📝 Problema</td>
+                                <td style="color:#E2E8F0;" th:text="${consulta.descripcionProblema}">No enciende</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#94A3B8;">💰 Traslado</td>
+                                <td>
+                                    <span th:if="${esGratis}" style="color:#3DE273; font-weight:600;">GRATIS</span>
+                                    <span th:unless="${esGratis}" style="color:#E2E8F0;" th:text="${costoFormateado}">$25.000</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- Recordatorio de bonificación -->
+                <tr>
+                    <td style="padding: 0 40px 24px 40px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#14C9C0/10; border-left:3px solid #14C9C0; border-radius:4px;">
+                            <tr>
+                                <td style="padding: 14px 18px;">
+                                    <p style="margin:0; font-size:13px; color:#E2E8F0; line-height:1.5;">
+                                        💡 <strong>Recordá:</strong> si aprobás la reparación, el costo del traslado se descuenta del presupuesto final.
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- CTA WhatsApp -->
+                <tr>
+                    <td style="padding: 0 40px 32px 40px; text-align:center;">
+                        <a href="https://wa.me/5491100000000?text=Hola,%20consult%C3%A9%20por%20la%20web.%20Mi%20comprobante%20es%20el%20" th:hrefappend="${consulta.numeroComprobante}"
+                           style="display:inline-block; padding:14px 28px; background-color:#1E5FD9; color:#FFFFFF; font-size:14px; font-weight:600; text-decoration:none; border-radius:4px; letter-spacing:0.5px;">
+                            📱 Coordinar por WhatsApp
+                        </a>
+                        <p style="margin: 12px 0 0 0; font-size:12px; color:#94A3B8;">
+                            O respondé este mail si tenés alguna duda.
+                        </p>
+                    </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                    <td style="padding: 24px 40px; background-color:#070D21; border-top:1px solid #1E293B;">
+                        <p style="margin:0 0 6px 0; font-size:12px; color:#94A3B8;">
+                            <strong style="color:#E2E8F0;">NOXAS Service PC</strong> · CABA, Argentina
+                        </p>
+                        <p style="margin:0; font-size:11px; color:#64748B;">
+                            WhatsApp: +54 9 11 XXXX-XXXX · Email: <span th:text="${T(org.springframework.boot.autoconfigure.web.WebProperties).toString() != null ? 'hola@noxas.com.ar' : ''}">hola@noxas.com.ar</span>
+                        </p>
+                        <p style="margin:8px 0 0 0; font-size:10px; color:#475569;">
+                            Este es un mensaje automático, no respondas directamente a este correo.
+                        </p>
+                    </td>
+                </tr>
+
+            </table>
+            <!-- /Contenedor principal -->
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
